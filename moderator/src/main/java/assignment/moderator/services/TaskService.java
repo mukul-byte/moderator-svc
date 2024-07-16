@@ -65,7 +65,7 @@ public class TaskService {
         return this.taskRepository.save(task);
     }
 
-    public void allocateTasks() {
+    public void allocateModerators() {
         //pull all moderators according to the filters
         List<Moderator> moderators = this.moderatorService.getModerators();
         if(moderators.isEmpty()){

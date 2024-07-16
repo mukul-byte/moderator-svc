@@ -14,7 +14,7 @@ public class TaskCron {
     public void execute() {
         try {
             System.out.println("Cron");
-            taskService.allocateTasks();
+            taskService.allocateModerators();
         } catch (RuntimeException ex) {
             System.out.println("Error while running task cron: " + ex.getMessage());
         }
