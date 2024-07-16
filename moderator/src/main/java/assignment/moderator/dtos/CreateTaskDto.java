@@ -1,15 +1,15 @@
 package assignment.moderator.dtos;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.UUID;
 
 @Getter
 @Setter
 @AllArgsConstructor
+@Builder
+@ToString
 public class CreateTaskDto {
     private String reportReason;
     private UUID jobId;

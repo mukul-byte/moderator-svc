@@ -14,7 +14,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.UUID;
 
 import static assignment.moderator.helpers.EnumValidator.getEnumValue;
 
@@ -43,7 +42,7 @@ public class TaskService {
     @PostConstruct
     public void init() {
         this.assignmentFilters = new AssignmentFilters(null, null, true);
-        this.assignmentStrategy = new RoundRobinAssignment();
+        this.assignmentStrategy = new WeightedRoundRobinAssignment();
     }
 
     public Task createTask(CreateTaskDto createTaskDto) {

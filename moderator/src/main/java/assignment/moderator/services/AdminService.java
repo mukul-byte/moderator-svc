@@ -6,7 +6,6 @@ import assignment.moderator.exceptions.ModeratorNotExistException;
 import assignment.moderator.models.Moderator;
 import assignment.moderator.models.Task;
 import assignment.moderator.services.strategies.AssignmentFilters;
-import assignment.moderator.services.strategies.AssignmentStrategyEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

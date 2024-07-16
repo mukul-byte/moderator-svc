@@ -9,6 +9,7 @@ import assignment.moderator.services.strategies.AssignmentFilters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -73,7 +74,7 @@ public class AdminController {
             @RequestParam(defaultValue = "0") int pageNumber,
             @RequestParam(defaultValue = "10") int count) {
 
-        Page<Task> page = this.adminService.monitorTasks(PageRequest.of(pageNumber, count));
+        Page<Task> page = this.adminService.monitorTasks(PageRequest.of(pageNumber, count, Sort.by("createdAt").descending()));
         List<Task> tasks = page.getContent();
 
         List<TaskResponseDto> tasksResponses = new ArrayList<>();
