@@ -4,9 +4,12 @@ import assignment.moderator.dtos.UpdateModeratorAbsentDto;
 import assignment.moderator.dtos.UpdateModeratorDto;
 import assignment.moderator.exceptions.ModeratorNotExistException;
 import assignment.moderator.models.Moderator;
+import assignment.moderator.models.Task;
 import assignment.moderator.services.strategies.AssignmentFilters;
 import assignment.moderator.services.strategies.AssignmentStrategyEnum;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
@@ -53,5 +56,9 @@ public class AdminService {
 
     public void configureAssignmentFilter(AssignmentFilters assignmentFilters) {
         this.taskService.configureAssignmentFilter(assignmentFilters);
+    }
+
+    public Page<Task> monitorTasks(PageRequest pageRequest) {
+        return taskService.findAll(pageRequest);
     }
 }

@@ -9,6 +9,8 @@ import assignment.moderator.repositories.TaskRepository;
 import assignment.moderator.services.strategies.*;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -88,9 +90,15 @@ public class TaskService {
             throw new InvalidAssignmentStrategy("invalid assignment strategy");
         }
         this.assignmentStrategy = AssignmentStrategyFactory.getStartegy(assignmentStrategyEnum);
+//        System.out.println("startegy configured successfully " + assignmentStrategy.toString());
     }
 
     public void configureAssignmentFilter(AssignmentFilters assignmentFilters) {
         this.assignmentFilters = assignmentFilters;
+//        System.out.println("assignmentFilters configured successfully " + assignmentFilters.toString());
+    }
+
+    public Page<Task> findAll(PageRequest pageRequest) {
+        return this.taskRepository.findAll(pageRequest);
     }
 }

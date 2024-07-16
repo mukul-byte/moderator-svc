@@ -1,5 +1,6 @@
 package assignment.moderator;
 
+import assignment.moderator.models.Department;
 import assignment.moderator.models.Job;
 import assignment.moderator.models.JobSeeker;
 import assignment.moderator.models.Moderator;
@@ -11,6 +12,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
 @SpringBootTest
@@ -30,10 +33,15 @@ public class ModeratorTest {
 
     @Test
     public void createModerator() {
-        Moderator moderator = new Moderator();
-        moderator.setPreferredCity("Bengaluru");
-        moderator.setShiftTiming(ShiftTiming.EVENING);
-        moderator.setName("Rahul");
+        List<Department> departments = Arrays.asList(new Department("CSE"), new Department("MCE"));
+        Moderator moderator = Moderator.builder()
+                .absent(false)
+                .email("rohit@gmail.com")
+                .active(true)
+                .departments(departments)
+                .preferredCity("New Delhi")
+                .performanceScore(5)
+                .build();
 
         moderatorService.save(moderator);
     }
@@ -41,7 +49,8 @@ public class ModeratorTest {
     @Test
     public void createJobSeeker() {
         JobSeeker jobSeeker = new JobSeeker("Mukul", "Mkl167@gmail.com");
-        jobSeekerRepository.save(jobSeeker);
+        JobSeeker savedJobSeeker = jobSeekerRepository.save(jobSeeker);
+        System.out.println("JobSeeker created with id: "+ savedJobSeeker.getId());
     }
 
     @Test

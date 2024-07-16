@@ -1,18 +1,20 @@
 package assignment.moderator.controllers;
 
-import assignment.moderator.dtos.AssignmentFilterDTO;
-import assignment.moderator.dtos.ModeratorResponseDto;
-import assignment.moderator.dtos.UpdateModeratorAbsentDto;
-import assignment.moderator.dtos.UpdateModeratorDto;
+import assignment.moderator.dtos.*;
 import assignment.moderator.helpers.ErrorResponse;
 import assignment.moderator.models.Moderator;
+import assignment.moderator.models.Task;
 import assignment.moderator.services.AdminService;
 import assignment.moderator.services.strategies.AssignmentFilters;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -63,5 +65,30 @@ public class AdminController {
         } catch (RuntimeException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErrorResponse(e.getMessage()));
         }
+    }
+
+    @GetMapping("/monitor")
+    @ResponseBody
+    public ResponseEntity<List<TaskResponseDto>> getTasksByPage(
+            @RequestParam(defaultValue = "0") int pageNumber,
+            @RequestParam(defaultValue = "10") int count) {
+
+        Page<Task> page = this.adminService.monitorTasks(PageRequest.of(pageNumber, count));
+        List<Task> tasks = page.getContent();
+
+        List<TaskResponseDto> tasksResponses = new ArrayList<>();
+        for(Task t: tasks){
+            TaskResponseDto taskResponse = TaskResponseDto.builder()
+                    .reportReason(t.getReportReason().getReason())
+                    .jobCode(t.getJob().getJobCode())
+                    .reportedByEmail(t.getReportedBy().getEmail())
+                    .reportedByName(t.getReportedBy().getName())
+                    .moderatorEmail(t.getModerator().getEmail())
+                    .moderatorName(t.getModerator().getName())
+                    .build();
+            tasksResponses.add(taskResponse);
+        }
+
+        return ResponseEntity.ok(tasksResponses);
     }
 }
