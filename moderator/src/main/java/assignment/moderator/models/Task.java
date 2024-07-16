@@ -1,16 +1,14 @@
 package assignment.moderator.models;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class Task extends BaseClass{
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "report_reason_id")

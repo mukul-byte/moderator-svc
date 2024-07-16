@@ -4,6 +4,8 @@ import assignment.moderator.dtos.UpdateModeratorAbsentDto;
 import assignment.moderator.dtos.UpdateModeratorDto;
 import assignment.moderator.exceptions.ModeratorNotExistException;
 import assignment.moderator.models.Moderator;
+import assignment.moderator.services.strategies.AssignmentFilters;
+import assignment.moderator.services.strategies.AssignmentStrategyEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -43,5 +45,13 @@ public class AdminService {
 
         moderator.setAbsent(updateModeratorAbsentDto.isAbsent());
         return this.moderatorService.save(moderator);
+    }
+
+    public void configureAssignmentStrategy(String assignmentStrategy) {
+        this.taskService.configureAssignmentStrategy(assignmentStrategy);
+    }
+
+    public void configureAssignmentFilter(AssignmentFilters assignmentFilters) {
+        this.taskService.configureAssignmentFilter(assignmentFilters);
     }
 }

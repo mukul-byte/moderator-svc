@@ -1,16 +1,17 @@
 package assignment.moderator.dtos;
 
-
 import assignment.moderator.models.Department;
 import assignment.moderator.models.Moderator;
 import assignment.moderator.models.helpers.ShiftTiming;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.Setter;
 
 import java.util.List;
 import java.util.UUID;
 
 @Setter
+@Getter
 @AllArgsConstructor
 public class ModeratorResponseDto {
     private UUID id;
